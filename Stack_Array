@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#define STACK_SIZE 4
+
+struct stack{
+    int data[STACK_SIZE]; // ihtiyaca göre veri türü deðiþebilir
+    int top;
+};
+
+void push(struct stack *stk, int data) {
+    if(stk -> top == STACK_SIZE - 1) // top son indisi tutuyorsa doludur
+        printf("\nStack dolu\n\n");
+    else {
+    stk -> top ++;
+    stk -> data[stk -> top] = data;
+}
+}
+
+void reset(struct stack *stk) {
+    stk -> top = -1;
+}
+
+int pop(struct stack *stk) {
+    if(stk -> top == -1) // stack boþ mu diye kontrol ediliyor
+        printf("Stack bos");
+    else {
+        int x = stk -> top--; // -- operatörünün iþlem sýrasýna dikkat
+return x; // çýkarýlan elemanýn indis deðeriyle geri dönüyor
+}
+}
+
+int main()
+{
+    setlocale(LC_ALL,"Turkish");
+    int secim, data,x;
+    struct stack stk;
+    while(1){
+    printf("\nSTCAK WITH ARRAY\n");
+    printf("\n-----Aþaðýdaki iþlemlerden birini seçiniz...---\n");
+    printf("1-Yığına Eleman Ekleme (Push)\n");
+    printf("2-Yığından Eleman Çıkarma (Pop)\n");
+    printf("3-Yığını Boşaltma (Reset\n");
+    printf("4-Elemanlarý Listele\n");
+    printf("5-Yığının Eleman Sayýsý\n");
+    printf("6-Çıkış\n");
+    scanf("%d", &secim);
+
+            switch(secim){
+                case 1:printf("Lütfen Eklemek Ýstediðiniz Deðeri Giriniz...");
+                    scanf("%d",&data);
+                    push(&stk, data);
+                    break;
+                case 2:x=pop(&stk);
+                    break;
+                case 3:reset(&stk);
+                    break;
+                case 4://print_stack(&stk);
+                    break;
+                case 5://item_count(&stk);
+                    break;
+                case 6:exit(0);
+                    break;
+                default: printf("Yanlis secim\n");
+            }
+    }
+}
