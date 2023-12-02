@@ -1,0 +1,160 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+struct ogrenci{
+char adi[20];
+char soyadi[20];
+char Tc_Numarasi[11];
+int okul_numarasi;
+};
+
+struct node{
+struct  ogrenci ogr;
+struct node * next;
+};
+
+struct node *basa_ekle(struct node *head, struct ogrenci obj_Ogr){
+struct node* temp=(struct node *)malloc(sizeof(struct node));
+temp->ogr=obj_Ogr;
+temp->next=head;
+head=temp;
+printf("Öðrenci Listeye Eklenmiþtir...\n");
+return head;
+}
+
+void sona_ekle(struct node *head, struct ogrenci obj_Ogr){
+if(head==NULL){
+    printf("Liste Boþ Ýken Listenin Sonuna Ekleme Yapamazsýnýz\n");
+    return;
+}
+struct node * temp=(struct node*)malloc(sizeof(struct node));
+temp->ogr=obj_Ogr;
+temp->next=NULL;
+struct node *temp2=head;
+while(temp2->next!=NULL)
+    temp2=temp2->next;
+temp2->next=temp;
+}
+void ortaya_ekle(struct node *head, struct ogrenci obj_Ogr, int index){
+if(head==NULL){
+    printf("Liste Boþ Ýken Listenin Sonuna Ekleme Yapamazsýnýz\n");
+    return;
+}
+struct node * temp=(struct node*)malloc(sizeof(struct node));
+struct node *temp2=head;
+for(int i=0;i<=index;i++)
+    temp2=temp2->next;
+temp->ogr=obj_Ogr;
+temp->next=temp2->next;
+temp2->next=temp;
+}
+
+void listele(struct node *head){
+    int i=1;
+    if(head==NULL){
+        printf("Listede eleman yoktur.\n");
+        return;
+    }
+    struct node * temp=head;
+    while(temp!=NULL){
+       printf("%d öðrencinin ismi= %s\n",i,temp->ogr.adi);
+       printf("%d öðrencinin soyismi= %s\n",i,temp->ogr.soyadi);
+       printf("%d öðrencinin TC Numarasý= %s\n",i,temp->ogr.Tc_Numarasi);
+       printf("%d öðrencinin Okul Numarasý= %d\n",i,temp->ogr.okul_numarasi);
+       printf("_______________________________________\n");
+       temp=temp->next;
+       i++;
+    }
+}
+
+int main()
+{
+setlocale(LC_ALL,"Turkish");
+int secim,index;
+struct node *head=NULL;
+while(1){
+    struct ogrenci obj_Ogr;
+    printf("-----Aşaðýdaki iþlemlerden birini seçiniz...---\n");
+    printf("1-Listenin Baþýna Eleman Ekleme\n");
+    printf("2-Listenin Sonuna Eleman Ekleme\n");
+    printf("3-Listenin Ortasýna Eleman Ekleme\n");
+    printf("4-Elemanlarý Listele\n");
+    printf("5-Verilen Adresteki elemaný Düzenle\n");
+    printf("6-Listenden Ýstenilen Elamaný Sil\n");
+    printf("7-Listeyi Sil\n");
+    printf("8-Listenin Eleman Sayýsý\n");
+    printf("9-Listenin Tüm elemanlarýnýn Bilgilerini Yazdýr\n");
+    printf("10-Listede arama yapmak\n");
+    printf("11-Listenin Elamanlarını Tersten Yazdır\n");
+    printf("12-Listenin Kopyasını Oluştur\n");
+    printf("13-Listeleri birbirine Ekle\n");
+    printf("14-Programdan Çýk\n");
+    scanf("%d",&secim);
+    switch(secim){
+        case 1: printf("Öðrencinin adýný girin...\n");
+            scanf("%s",&obj_Ogr.adi);
+            printf("Öðrencinin soyadýný girin...\n");
+            scanf("%s",&obj_Ogr.soyadi);
+            printf("Öðrencinin TC numarasýný girin...\n");
+            scanf("%s",&obj_Ogr.Tc_Numarasi);
+            printf("Öðrencinin okul numarasýný girin...\n");
+            scanf("%d",&obj_Ogr.okul_numarasi);
+            head=basa_ekle(head,obj_Ogr);
+            break;
+        case 2: printf("Öðrencinin adýný girin...\n");
+            scanf("%s",&obj_Ogr.adi);
+            printf("Öðrencinin soyadýný girin...\n");
+            scanf("%s",&obj_Ogr.soyadi);
+            printf("Öðrencinin TC numarasýný girin...\n");
+            scanf("%s",&obj_Ogr.Tc_Numarasi);
+            printf("Öðrencinin okul numarasýný girin...\n");
+            scanf("%d",&obj_Ogr.okul_numarasi);
+            sona_ekle(head,obj_Ogr);
+            break;
+        case 3: printf("Öðrencinin adýný girin...\n");
+            scanf("%s",&obj_Ogr.adi);
+            printf("Öðrencinin soyadýný girin...\n");
+            scanf("%s",&obj_Ogr.soyadi);
+            printf("Öðrencinin TC numarasýný girin...\n");
+            scanf("%s",&obj_Ogr.Tc_Numarasi);
+            printf("Öðrencinin okul numarasýný girin...\n");
+            scanf("%d",&obj_Ogr.okul_numarasi);
+            printf("Eklemek istediðiniz index bilgisini girinn...\n");
+            scanf("%d",&index);
+            ortaya_ekle(head,obj_Ogr,index);
+            break;
+        case 4: listele(head);
+        break;
+        case 5:
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        case 8:
+            break;
+        case 9:
+            break;
+        case 10:
+            break;
+        case 11:
+            break;
+        case 12:
+            break;
+        case 13:
+            break;
+        case 14:exit(0);
+            break;
+        default: printf("Yanlýþ bir deðer seçtiniz.\n");
+            break;
+
+    }
+
+}
+
+printf("Hello World");
+
+return 0;
+
+}
