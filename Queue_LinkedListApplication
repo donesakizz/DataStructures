@@ -1,0 +1,103 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+
+struct node{
+int data;
+struct node *next;
+};
+
+struct queue{
+struct node *front;
+struct node * rear;
+int count;
+};
+
+void initialize(struct queue *q) {
+q -> count = 0;
+q -> front = NULL;
+q -> rear = NULL;
+}
+
+void enqueue(struct queue *q, int data) {
+
+struct node *temp = (struct node *)malloc(sizeof(struct node));
+temp -> next = NULL;
+temp -> data = data;
+if(q->count==0)
+q -> front = q -> rear = temp;
+else {
+q -> rear -> next = temp;
+q -> rear = temp;
+}q-> count ++;
+}
+
+
+int dequeue(struct queue *q) {
+if(q->count==0)
+{
+    printf("Kuyruk Boþ olduðu Ýçin Silme iþlemi Gerçekleþtirelememiþtir.");
+    return 0;
+}
+struct node *temp = q -> front;
+int data = temp -> data;
+q -> front = temp -> next;
+free(temp);
+q -> count--;
+return data;
+}
+
+void print_queue(struct queue *q){
+if(q->count==0) {
+        printf("Kuyruk Boþ...");
+        return;
+}
+struct node *temp=q->front;
+
+for(int i=0;i<=q->count-1;i++){
+        printf("%d\n",temp->data);
+        temp=temp->next;
+}
+}
+
+void reset_queue(struct queue *q){
+    int i=q->count-1;
+    for( i; i>=0;i--)
+        dequeue(q);
+    printf("Kuyruktaki Tüm elemanlar silinmiþtir.");
+}
+
+
+int main()
+{
+    setlocale(LC_ALL,"Turkish");
+    int secim, data;
+    struct queue q;
+    initialize(&q);
+    while(1){
+    printf("\nQUEUE WITH ARRAY\n");
+    printf("\n-----Aþaðýdaki Ýþlemlerden Birini Seçiniz...---\n");
+    printf("1-Kuyruða Eleman Ekleme (Enqueue)\n");
+    printf("2-Kuyruktan Eleman Çýkarma (Dequeue)\n");
+    printf("3-Kuyruðu Boþaltma (Reset\n");
+    printf("4-Elemanlarý Listele (Print)\n");
+    printf("5-Çýkýþ\n");
+    scanf("%d", &secim);
+
+            switch(secim){
+                case 1:printf("Lütfen Eklemek Ýstediðiniz Deðeri Giriniz..");
+                    scanf("%d",&data);
+                    enqueue(&q, data);
+                    break;
+                case 2:data=dequeue(&q);
+                    break;
+                case 3:reset_queue(&q);
+                    break;
+                case 4:print_queue(&q);
+                    break;
+                case 5:exit(0);
+                    break;
+                default: printf("Yanlis secim\n");
+            }
+    }
+}
